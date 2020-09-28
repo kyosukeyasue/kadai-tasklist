@@ -25,6 +25,8 @@
         </table>
     @endif
     
+    {{ $tasks->links() }}
+    
     {!! link_to_route('tasks.create', 'タスクの追加', [], ['class' => 'btn btn-primary']) !!}
 
 @endsection
