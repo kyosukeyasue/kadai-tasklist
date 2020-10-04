@@ -1,31 +1,22 @@
 @extends('layouts.app')
 
 @section('content')
-
-    <h1>タスク一覧</h1>
-
-    @if (count($tasks) > 0)
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th style="width:10%">id</th>
-                    <th style="width:70%">タスク</th>
-                    <th style="width:20%">ステータス</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($tasks as $task)
-                <tr>
-                    <td>{!! link_to_route('tasks.show', $task->id, ['task' => $task->id]) !!}</td>
-                    <td>{{ $task->content }}</td>
-                    <td>{{ $task->status }}</td>
-                </tr>
-                @endforeach
-            </tbody>
-        </table>
-    @endif
     
-    {{ $tasks->links() }}
+    @if (Auth::check())
+        {{ Auth::user()->name }}
+    @else
+        <div class="center jumbotron">
+            <div class="text-center">
+                <h1>Welcome to the Tasks</h1>
+                {{-- ユーザ登録ページへのリンク --}}
+                {!! link_to_route('signup.get', 'Sign up now!', [], ['class' => 'btn btn-lg btn-primary']) !!}
+            </div>
+        </div>
+    @endif
+
+   
+    
+    @include('tasks.tasks')
     
     {!! link_to_route('tasks.create', 'タスクの追加', [], ['class' => 'btn btn-primary']) !!}
 
